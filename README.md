@@ -40,11 +40,6 @@ The Sign Language Recognition System consists of several components:
 To set up the Sign Language Recognition System on your local machine, follow these steps:
 
 1. Clone the repository to your local machine.
-   
-    ``` bash
-    git clone https://github.com/the-sam963/Sign-language-Recognition.git
-    ```
-
 2. Install the required packages using the requirements.txt file.
 
     ``` bash
