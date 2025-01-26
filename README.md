@@ -29,8 +29,8 @@ To set up the Sign Language Recognition System locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/sign-language-recognition.git
-   cd sign-language-recognition
+   git clone https://github.com/ismailtarik/sign_language_recognition.git
+   cd sign_language_recognition
    ```
 
 2. Install dependencies:
@@ -84,7 +84,7 @@ The system can be personalized to detect new gestures or signs:
 6. Quit the program using the `Esc` key and open `train.ipynb` to retrain the model.
 
 ### Retraining Steps:
-1. Open `train.ipynb` in Jupyter Notebook.
+1. Open `training.ipynb` in Jupyter Notebook.
 2. Execute each cell to preprocess the dataset and train the model.
 3. Save the new model to replace the existing one in the `model` folder.
 
@@ -145,14 +145,4 @@ The preprocessed data is used to train a **Convolutional Neural Network (CNN)**:
 For this project:
 - Accuracy on the testing set: **90.60%**
 - Real-time performance: **71.12%**
-
-<br><br>
-
-## Contributing
-Contributions are welcome! Feel free to:
-- Open issues for bugs or feature requests.
-- Submit pull requests with improvements or fixes.
-- Share feedback to enhance usability.
-
-Thank you for supporting the Sign Language Recognition System!
 
