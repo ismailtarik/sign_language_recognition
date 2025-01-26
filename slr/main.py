@@ -70,11 +70,12 @@ def process_frame(image):
     image.flags.writeable = True
 
     detected_letter = ""
+    left_hand_detected = False  # Variable pour savoir si la main gauche est détectée
 
     # Si une main est détectée
     if results.multi_hand_landmarks is not None:
         for hand_landmarks, handedness in zip(results.multi_hand_landmarks, results.multi_handedness):
-            # Vérifie que c'est la main droite
+            # Vérifie si c'est la main droite
             if handedness.classification[0].label == "Right":
                 # Calcul des points de repère
                 brect = calc_bounding_rect(debug_image, hand_landmarks)
@@ -92,7 +93,16 @@ def process_frame(image):
                 debug_image = draw_landmarks(debug_image, landmark_list)
                 debug_image = draw_hand_label(debug_image, brect, handedness)
 
-    return detected_letter, debug_image
+            # Vérifie si c'est la main gauche
+            if handedness.classification[0].label == "Left":
+                # Si la main gauche est détectée, définir left_hand_detected à True
+                left_hand_detected = True
+
+                # Dessiner les annotations pour la main gauche (optionnel)
+                brect_left = calc_bounding_rect(debug_image, hand_landmarks)
+                debug_image = draw_bounding_rect(debug_image, False, brect_left)  # Dessiner la main gauche en débogage
+
+    return detected_letter, debug_image, left_hand_detected
 
 def main():
     load_dotenv()

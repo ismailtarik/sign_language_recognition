@@ -80,7 +80,7 @@ def gen_frames():
 
         # Si l'utilisateur a cliqué sur le bouton, on commence à analyser les signes
         if capture_flag:
-            detected_letter, debug_image = process_frame(debug_image)  # Appel correct de la fonction
+            detected_letter, debug_image, left_hand_detected = process_frame(debug_image)  # Ajouter un paramètre pour détecter la main gauche
 
             current_time = time.time()
             if detected_letter:
@@ -91,6 +91,12 @@ def gen_frames():
                     generated_phrase += detected_letter
                     last_sign_time = current_time
                     letter_detect_time = current_time
+            
+            # Vérification si la main gauche est détectée, ajoute un espace
+            if left_hand_detected:  # Si la main gauche est détectée, ajouter un espace
+                if current_time - last_sign_time > delay_threshold_for_space:  # Éviter d'ajouter trop d'espaces
+                    generated_phrase += " "
+                    last_sign_time = current_time
 
         # Encoder l'image pour le flux vidéo
         _, buffer = cv2.imencode(".jpg", debug_image)
