@@ -111,5 +111,16 @@ def show_fps_log(image, fps, log=""):
 
 
 
+def draw_landmarks(image, landmark_list, color=(0, 255, 0)):
+    """
+    Dessiner les repères de la main détectée sur l'image.
 
-
+    :param image: Image sur laquelle dessiner les repères
+    :param landmark_list: Liste des coordonnées des repères
+    :param color: Couleur des repères
+    :return: Image avec les repères dessinés
+    """
+    for landmark in landmark_list:
+        x, y = int(landmark[0]), int(landmark[1])  # Extraire les coordonnées (x, y)
+        cv.circle(image, (x, y), 5, color, -1)  # Dessiner chaque repère sous forme de cercle
+    return image

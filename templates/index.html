@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_copy.css') }}">
+    <title>Sign Language Detection</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Ajout de jQuery -->
+</head>
+<body>
+    <h1>Sign Language Detection</h1>
+    <table cellspacing="2px">
+        <tr>
+            <td class="col_one">
+                <table class="t_inner">
+                    <tr>
+                        <th>
+                            <h3>Live Feed</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="padded">
+                            <div class="vid">
+                                <div class="frame"></div>
+                                <img src="{{ url_for('video') }}" alt="Live Feed">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="{{ url_for('capture') }}" method="post">
+                                <button type="submit">Start Predict</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="col_two">
+                <table class="t_inner">
+                    <tr>
+                        <th colspan="2">
+                            <h3>Predicted Input</h3>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="padded" colspan="2">
+                            <div class="output-box" id="predicted-input">
+                                {{ output }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form action="{{ url_for('reset') }}">
+                                <button type="submit">Reset</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('del_last') }}">
+                                <button type="submit">Delete Last Letter</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        // Fonction AJAX pour obtenir la phrase générée en temps réel
+        function fetchPredictedInput() {
+            $.ajax({
+                url: "{{ url_for('get_prediction') }}",  // Route pour récupérer la prédiction
+                method: 'GET',
+                success: function(response) {
+                    // Mettre à jour la section "Predicted Input"
+                    $('#predicted-input').text(response.generated_phrase);
+                }
+            });
+        }
+
+        // Interroger le serveur toutes les 1000ms (1 seconde)
+        setInterval(fetchPredictedInput, 1000);
+    </script>
+</body>
+</html>
